@@ -1,162 +1,107 @@
-# Bell System Monitoring for macOS
+# Bell macOS Monitoring Script
 
 The Bell macOS Monitoring script is a Python-based monitoring tool designed to collect and report various system metrics from macOS-based servers. It provides functionalities for monitoring system performance, tracking resource usage, checking for updates, and sending alerts. The script is intended to be run as a background service and can be customized to suit specific monitoring needs.
 
-**Overview**
+## Overview
+
 The script utilizes various Python libraries and system commands to gather information about the system's performance, resource utilization, network activity, and more. It communicates with a remote server to report the collected data, allowing users to monitor their macOS server's health and status remotely.
 
-**Features**
-System Information: The script collects and reports essential system information, including the global IP address, hostname, uptime, and operating system version.
+## Features
 
-**Update Check** 
-The script periodically checks for updates and downloads and installs them if available, ensuring that the monitoring tool is up-to-date.
+- **System Information:** Collects and reports essential system information, including the global IP address, hostname, uptime, and operating system version.
 
-**Resource Monitoring** 
-The script monitors CPU usage, memory usage, disk usage, network bandwidth, and other system resources.
+- **Update Check:** Periodically checks for updates and downloads and installs them if available, ensuring that the monitoring tool is up-to-date.
 
-**Temperature Monitoring**: 
-The script gathers temperature data from system sensors, providing insights into the server's thermal state.
+- **Resource Monitoring:** Monitors CPU usage, memory usage, disk usage, network bandwidth, and other system resources.
 
-**Process Monitoring**: 
-It tracks running processes and their CPU usage, allowing users to monitor the performance of individual processes.
+- **Temperature Monitoring:** Gathers temperature data from system sensors, providing insights into the server's thermal state.
 
-**Alerting Mechanism**s: 
-The script can be configured to send alerts based on predefined thresholds for disk usage, swap usage, and network latency.
+- **Process Monitoring:** Tracks running processes and their CPU usage, allowing users to monitor the performance of individual processes.
 
-**Service Status Monitoring**: 
-It checks the status of a specific service and can trigger server reboot or shutdown actions based on the server's status.
+- **Alerting Mechanisms:** Can be configured to send alerts based on predefined thresholds for disk usage, swap usage, and network latency.
 
-**Usage**
-**Dependencies**: 
-The script relies on various Python libraries, including psutil, requests, and others. Make sure these dependencies are installed.
+- **Service Status Monitoring:** Checks the status of a specific service and can trigger server reboot or shutdown actions based on the server's status.
 
-**Configuration**: 
-Configure the script by modifying the settings at the beginning of the script. Customize alert thresholds, URLs, and other parameters to match your requirements.
+## Usage
 
-**Execution**: 
-Run the script as a background service. It will continuously gather data and send it to a remote server for monitoring.
+**Dependencies:** The script relies on various Python libraries, including psutil, requests, and others. Make sure these dependencies are installed.
 
-**Alerts**
-Configure alerting mechanisms by setting threshold values for resource usage. The script will send alerts if resource usage exceeds the specified thresholds.
+**Configuration:** Configure the script by modifying the settings at the beginning of the script. Customize alert thresholds, URLs, and other parameters to match your requirements.
 
-**Note**
-The script has been tailored to integrate with the bellbots.eu platform, where the provided IP address is used for verification purposes. This script includes features for handling errors and reporting them to a remote server. The structure of the script is organized into various functions, each serving distinct roles in the monitoring and reporting process.
+**Execution:** Run the script as a background service. It will continuously gather data and send it to a remote server for monitoring.
 
-**Disclaimer**
+**Alerts:** Configure alerting mechanisms by setting threshold values for resource usage. The script will send alerts if resource usage exceeds the specified thresholds.
+
+## Disclaimer
+
 This script is provided as a starting point for creating a monitoring tool and may require additional adjustments to work seamlessly with your system and network environment. It's important to review and test the script in a controlled environment before deploying it to production systems.
 
-**Important Note**
-This script is intended to be used exclusively with a booked service on the bellbots.eu platform. The provided IP address is crucial for verification, and unauthorized use is strictly prohibited. Ensure that you have a legitimate booking on bellbots.eu and have entered the correct IP address for verification. Unauthorized use may result in account suspension or legal action.
+**Important Note:** This script is intended to be used exclusively with a booked service on the bellbots.eu platform. The provided IP address is crucial for verification, and unauthorized use is strictly prohibited. Ensure that you have a legitimate booking on bellbots.eu and have entered the correct IP address for verification. Unauthorized use may result in account suspension or legal action.
 
-**Installation and Usage Guide**
-**Prerequisites**
+## Installation and Usage Guide
 
-macOS-based server
-Python 3.x installed
-Internet connectivity
+### Prerequisites
 
-**Installation Steps**
-**Clone the Repository**
-Open a terminal and navigate to the directory where you want to store the monitoring script. Clone the repository using the following command:
+    macOS-based server
+    Python 3.x installed
+    Internet connectivity
 
-  git clone gh repo clone bellnetwork/bellsys_moni_macos
+### Installation Steps
 
-  cd bellsys_moni_macos
-  
-**Install Dependencies**
+1. Clone the Repository:
 
-  brew install mpstat
-  
-  brew install coreutils
-  
-  brew install bpytop
+        git clone gh repo clone bellnetwork/bellsys_moni_macos
+        cd bellsys_moni_macos
 
-Install Python3:
+### Install Dependencies:
+    brew install mpstat
+    brew install coreutils
+    brew install bpytop
+    brew install python3 python3-pip
+    pip3 install psutil requests
 
-  brew install python3 python3-pip
+### Run the Script:
+ 
+    python3 sys_check.py &
 
-Install the required Python dependencies using pip:
+### Usage Guide
 
-  pip3 install psutil requests
+Monitoring Data: The script will continuously monitor various metrics, such as CPU usage, memory usage, network activity, and more.
 
-**Run the Script**
+Alerts: If configured, the script will send alerts when predefined thresholds are exceeded.
 
-Run the script in the background as a service. You can do this using a terminal command:
+Update Check: The script will periodically check for updates and install them if available. This ensures the monitoring tool is up-to-date.
 
-  python3 sys_check.py &
-  
-This command starts the script in the background. You can exit the terminal, and the script will continue running.
+Remote Monitoring: The collected data is sent to a remote server for monitoring. Configure the URLs in the script to match your remote server's endpoints.
 
-**Usage Guide**
-**Monitoring Data**:
-The script will continuously monitor various metrics, such as CPU usage, memory usage, network activity, and more.
+### Stopping the Script
+To stop the script, find its process ID (PID) and use the kill command.
 
-**Alerts** 
-If configured, the script will send alerts when predefined thresholds are exceeded.
+### Setup launchctl
+Edit and move the .plist file. Ensure the correct path is entered.
 
-**Update Check**
-The script will periodically check for updates and install them if available. This ensures the monitoring tool is up-to-date.
+    vi com.bellsyscheck.plist
+    mv com.bellsyscheck.plist /Library/LaunchDaemons/com.bellsyscheck.plist
 
-**Remote Monitoring** 
-The collected data is sent to a remote server for monitoring. Configure the URLs in the script to match your remote server's endpoints.
+Load and start the service:
 
-**Stopping the Script**
+    sudo launchctl load /Library/LaunchDaemons/com.bellsyscheck.plist
+    sudo launchctl start com.bellsyscheck
 
-To stop the script, you need to find its process ID (PID) and use the kill command. Follow these steps:
+Verify the Service:
 
-Use the following command to list all background processes:
+    sudo launchctl list | grep com.bellsyscheck
 
-  ps aux | grep sys_check.py
-  
-Identify the process ID (PID) of the script.
+## Logs and Unloading
+Logs are written to /var/log/bellsyscheck.log and /var/log/bellsyscheck_error.log.
+To stop and unload the service:
 
-Use the kill command to stop the script by sending the appropriate signal. Replace <pid> with the actual process ID.
+    sudo launchctl stop com.bellsyscheck
+    sudo launchctl unload /Library/LaunchDaemons/com.bellsyscheck.plist
 
-  kill <pid>
-  
+### Customization and Advanced Usage
+The script's core functionality is tightly integrated with the bellbots.eu platform. Unauthorized modifications may cause malfunctions. While you can't modify the core code, you can suggest new features through bellbots.eu support.
 
-**Setup launchctl**
+For customization, adjust intervals for data collection, alerts, and updates. Always ensure changes align with intended usage and bellbots.eu service context. Your feedback is valuable for ongoing improvements.
 
-Edit and move the .plist file. Please ensure that you entered the correct path.
-
-  vi com.bellsyscheck.plist
-
-  mv com.bellsyscheck.plist /Library/LaunchDaemons/com.bellsyscheck.plist
-
-Run the following commands to load and start the service:
-  sudo launchctl load /Library/LaunchDaemons/com.bellsyscheck.plist
-  
-  sudo launchctl start com.bellsyscheck
-
-**Verify the Service:**
-
-You can check the status of the service using the launchctl command:
-sudo launchctl list | grep com.bellsyscheck
-
-You should see output indicating that the service is loaded and running.
-
-**Logs:**
-
-The standard output and standard error logs are written to the paths specified in the <string> elements of the .plist file (/var/log/bellsyscheck.log and /var/log/bellsyscheck_error.log, respectively).
-
-**Unload and Stop the Service:**
-
-To stop and unload the service, you can use the following commands:
-
-  sudo launchctl stop com.bellsyscheck
-
-  sudo launchctl unload /Library/LaunchDaemons/com.bellsyscheck.plist
-
-Please note that modifying system-level settings like launchd requires administrative privileges and can impact system behavior. Always use caution and test thoroughly in a controlled environment before deploying to production systems.
-
-**Customization and Advanced Usage**
-
-Please note that the script's core functionality is tightly integrated with the bellbots.eu platform, and unauthorized modifications may cause the script to malfunction or behave unpredictably. We strongly discourage any modifications to the script's existing codebase.
-
-If you have ideas for new features or improvements, we encourage you to share your suggestions with us. You can create a new support ticket on bellbots.eu to propose new features or discuss potential enhancements. Our team will review your suggestions and consider them for future updates to the script.
-
-While you are not allowed to directly modify the script's core code, you can still enhance its capabilities by suggesting new monitoring functions, alert mechanisms, or additional system metrics. Your feedback is valuable to us and can contribute to the ongoing improvement of the Bell macOS Monitoring script.
-
-As for customizing the script's behavior, you can adjust the intervals at which data is collected, alerts are checked, and updates are performed. However, please exercise caution and ensure that any changes align with the intended functionality and usage of the script within the context of the bellbots.eu service.
-
-Thank you for your understanding and cooperation in adhering to the script's usage guidelines. If you have any questions or suggestions, please don't hesitate to reach out to us through the support channels provided on bellbots.eu.
+Thank you for understanding and adhering to usage guidelines. For questions or suggestions, reach out via bellbots.eu support channels.
