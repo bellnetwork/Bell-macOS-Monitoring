@@ -1,4 +1,4 @@
-# bellsys_moni_macos
+# Bell System Monitoring for macOS
 
 The Bell macOS Monitoring script is a Python-based monitoring tool designed to collect and report various system metrics from macOS-based servers. It provides functionalities for monitoring system performance, tracking resource usage, checking for updates, and sending alerts. The script is intended to be run as a background service and can be customized to suit specific monitoring needs.
 
