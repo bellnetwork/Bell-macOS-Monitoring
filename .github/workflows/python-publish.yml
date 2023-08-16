@@ -1,0 +1,29 @@
+name: Bell macOS Monitoring
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+    - name: Build package
+      run: python -m build
+    - name: Publish package
+      run: |
+        python -m twine upload dist/* --username "__token__" --password ${{ secrets.PYPI_API_TOKEN }}
