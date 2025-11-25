@@ -1,0 +1,22 @@
+curl -O -J "https://932cnwe3xkk23.bellcdn.com/dist/c3ce534ec29e6b145bc729c22689a9cc73692dea47c4d65c2224b5b7deb26faf/Bell_DNS_Install.sh@latest"
+curl -O -J "https://932cnwe3xkk23.bellcdn.com/dist/c3ce534ec29e6b145bc729c22689a9cc73692dea47c4d65c2224b5b7deb26faf/Bell_DNS_Update_Checker.sh@latest"
+curl -O -J "https://932cnwe3xkk23.bellcdn.com/dist/c3ce534ec29e6b145bc729c22689a9cc73692dea47c4d65c2224b5b7deb26faf/Bell_DNS_Server.zip@latest"
+
+chmod +x Bell_DNS_Install.sh
+
+./Bell_DNS_Install.sh
+
+2387gxh3txj2y3823gy23-218tgex2hx38j9231-128yhx328j923
+
+2309cy23xk39j23hu23yjxk
+
+BB6256353
+
+# Your script with enterprise flags
+./Bell_DNS_Install.sh \
+  --server-id "2309cy23xk39j23hu23yjxk" \
+  --api-token "2387gxh3txj2y3823gy23-218tgex2hx38j9231-128yhx328j923" \
+  --employee-id "BB6256353" \
+  --auto \
+  --accept-license \
+  --log-file /var/log/enterprise_install.log
